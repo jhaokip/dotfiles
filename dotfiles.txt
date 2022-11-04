@@ -1,0 +1,114 @@
+#########################################################################################
+#
+# Managing dotfiles
+#
+
+### 1. Setting up git bare repo on source machine ###
+
+1. Install git: sudo pacman -S git
+	* This will install git on host machine.
+
+2. git init --bare $HOME/.cfg
+	* This creates the folder .cfg, a bare Git repository which will be used to track our 		dotfiles.
+	* This will NOT initialise a work tree (as opposed to the usual non-bare case)
+	* Git files are located at the top level of the project directory i.e. $HOME.
+
+3. alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+	* This creates an alias named config, which allows you to send git commands to the
+	  .cfg repository from any location, even outside of the repository.
+	* Normally, one runs Git commands from inside a project folder (eg. git add file).
+	  Git commands are processed in the projects own /.git directory, and Git assumes
+	  that the working tree is located at <project>. None of this has to be configured,
+	  it's the default behaviour of a non-bare git repository.
+
+4.	echo "alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'" >> $HOME/.bashrc
+	* This makes config alias permanently available, so that you don't have to run line 3 		every time you start a new shell sessison. One can either manually paste this alias 	  or use line 3 for convenience, i.e add it to your .bashrc.
+
+5. config config --local status.showUntrackedFiles no
+	% Before running line 5, try typing config status from any directory. Our config alias  	(i.e the first config in 'config config ....') is sending a Git command to the .cfg
+      Git directory. The status will show a long list of all the untracked files under our 	    work tree $HOME.
+	% But .cfg should only keep track of the dotfiles that we explicitly add, not every 
+	  single item/file on our $HOME directory. So, Line 5 sets a local configuration in 
+	  .cfg to ignore untracked files.
+	% After running line 5, running config status again will show the message:
+	  On branch master
+	  nothing to commit
+
+6. Add and commit your dotfiles
+	% Now you can add and commit from any directory. Use you config alias
+	  combined with Git commands, like so:
+	$ config add .bashrc
+	$ config commit -m "Add .bashrc file"
+	  [master 78d8b4c] Add .bashrc files
+       1 file changed, 1 insertion(+)
+	$ config add .config/i3/config
+	  config commit -m "Add i3 config files"
+	  [master 743f604] Add i3 config files
+        1 file changed, 0 insertions(+), 0 deletions(-)
+	$ config add .xinitrc ; config commit -m "Add .xinitrc file"
+	$ config add .vimrc; config commit -m "Add .vimrc file"
+	$ config add .config/polybar; config commit -m "Add polybar config file" 
+
+7. Set up a remote repository on Github or any Git server
+	% New Repo -> Repo Name: myconfigs etc...
+	% Once finished on Github, back to local/host/source machine:
+		$ config remote add origin <remote-url>
+		$ config push -u origin main
+
+############ INSTALL YOUR DOTFILES ON A NEW SYSTEM, OR MIGRATE TO THIS SETUP ###########
+
+1. Install git on the new machine: sudo pacman -S git
+
+2. echo ".cfg" >> .gitignore
+	% This avoids recursive issues by adding .cfg to your global Gitignore. There could be		weird behaviour if .cfg tries to track itself.
+3. git clone --bare <remote-git-repo-url> $HOME/.cfg
+	% This clones the remote mydotfiles repo from github to the new machine
+
+4. alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+	% Like before, this sets up an alias to send Git commands to .cfg, and also sets 
+	  $HOME as the work tree, while storing the Git state at .cfg
+	% For a bare repo, the path to the Git directory is at the top level of the project:
+		$HOME/.cfg/ 
+	% For a non-bare git repo, the path to the Git directory is inside a .git subdirectory		  $HOME/.cfg/.git
+
+5. config config --local status.showUntrackedFiles no
+	% This sets a local configuration in .cfg to ignore untracked files
+
+6. config checkout
+	% 	Checkout the actual content from your .cfg repository to $HOME. Git pulls the 
+		tracked files out of the compressed database in the Git directory and places them
+		in the work tree.
+		E.g. if you add $HOME/.bashrc to .cfg, that file will be instantiated at that path		  on your new system. 
+	%	config checkout might fail with a message like:
+			error: The following untracked working tree files would be overwritten by
+				   checkout:
+					.bashrc
+					.gitignore
+			Please move or remove them before you can switch branches.
+			Aborting
+	% Files on your computer might have identical locations and names to files in the .cfg		repo. Git doesn't want to overwrite your local files.
+	% Back up the files if they're useful, delete them if they aren't.
+	% Run config checkout again until you don't get any errors.
+
+Your dotfile setup is complete!
+Treat your dotfile management system like any other Git project. 
+Just use the config alias to add, commit, push and pull.
+
+
+########################################################################################
+### On a new machine: Pull down and backup existing, conflicting configs...######### 
+
+git clone --bare https://bitbucket.org/durdn/cfg.git $HOME/.cfg
+function config {
+   /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
+}
+mkdir -p .config-backup
+config checkout
+if [ $? = 0 ]; then
+  echo "Checked out config.";
+  else
+    echo "Backing up pre-existing dot files.";
+    config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} .config-backup/{}
+fi;
+config checkout
+config config status.showUntrackedFiles no
