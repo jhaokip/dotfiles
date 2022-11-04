@@ -99,39 +99,7 @@ alias btrfsli="sudo btrfs su li / -t"
 #### Update mirrors
 alias mirror='sudo reflector --protocol https --latest 10 --number 20 --sort rate --save /etc/pacman.d/mirrorlist'
 alias mirrors='mirror'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 pfetch
+
+### git bare: config alias
 alias config='/usr/bin/git --git-dir=/home/haopu/.cfg/ --work-tree=/home/haopu'
