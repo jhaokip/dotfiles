@@ -103,3 +103,4 @@ pfetch
 
 ### git bare: config alias
 alias config='/usr/bin/git --git-dir=/home/haopu/.cfg/ --work-tree=/home/haopu'
+. "$HOME/.cargo/env"
