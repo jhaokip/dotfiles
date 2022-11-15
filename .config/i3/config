@@ -73,6 +73,7 @@ floating_modifier $mod
 # start a terminal
 ##bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec $preferredTerminalEmulator
+bindsym $mod+Shift+Return exec /usr/bin/alacritty
 # kill focused window
 ##bindsym $mod+Shift+q kill
 bindsym $mod+q kill
@@ -91,15 +92,15 @@ bindsym $alt+space exec --no-startup-id dmenu_run
 #bindsym $mod+k focus down
 #bindsym $mod+l focus up
 #bindsym $mod+semicolon focus right
-#bindsym $mod+h focus left
-#bindsym $mod+j focus down
-#bindsym $mod+k focus up
-#bindsym $mod+l focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
-bindsym control+h focus left
-bindsym control+j focus down
-bindsym control+k focus up
-bindsym control+l focus right
+#bindsym control+h focus left
+#bindsym control+j focus down
+#bindsym control+k focus up
+#bindsym control+l focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -196,7 +197,7 @@ for_window [class="firefox"] move to workspace $ws2
 for_window [class="Thunar"] move to workspace $ws3 
 for_window [class="KeePassXC"] move to workspace $ws9
 for_window [class="okular"] move to workspace $ws4
-for_window [class="Emacs"] move to workspace $ws5
+#for_window [class="Emacs"] move to workspace $ws5
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -327,7 +328,7 @@ exec_always /usr/bin/nitrogen --restore
 ## exec_always feh --bg-fill /home/haopu/Pictures/Wallpapers/background.png
 
 ## Keybinding for betterlockscreen
-bindsym $alt+x exec /usr/bin/betterlockscreen -l dim 
+bindsym $mod+Shift+x exec /usr/bin/betterlockscreen -l dim 
 
 ## Rofi themes from adi1090x
 #bindsym $alt+space exec --no-startup-id ~/.config/rofi/launchers/type-4/launcher.sh
@@ -346,3 +347,7 @@ exec_always --no-startup-id numlockx on
 
 ## Launch RedShift at startup
 ##exec --no-startup-id /usr/bin/redshiftgui
+
+## Launch Emacs
+bindsym $alt+e exec /usr/bin/emacs
+
