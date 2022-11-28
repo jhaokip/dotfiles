@@ -351,3 +351,5 @@ exec_always --no-startup-id numlockx on
 ## Launch Emacs
 bindsym $alt+e exec /usr/bin/emacs
 
+## Launch Thunar in daemon mode
+##exec_always thunar --daemon
