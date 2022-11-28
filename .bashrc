@@ -5,10 +5,10 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
+alias ls='ls --color=auto -lF'
 PS1='[\u@\h \W]\$ '
 
-############# SETTING DEFATAUL EDITOR ###################
+############# SETTING DEFAULT EDITOR ###################
 export EDITOR='vim'
 export VISUAL='vim'
 export HISTCONTROL=ignoreboth:erasedups
@@ -31,10 +31,12 @@ alias grep='grep --color=auto'
 #### System Update Pacman
 
 #### List ls aliases
-alias la='ls -a'
+alias la='ls -aF'
 alias ll='ls -alFh'
 alias l='ls'
 alias l.="ls -A | grep -E '^\.'"
+##alias urbit='ssh -i ~/.ssh/oracle.key ubuntu@130.61.255.175'
+alias rg='ranger'
 
 #### Fix obvious typo's
 alias cd..='cd ..'
@@ -42,7 +44,7 @@ alias pdw='pwd'
 alias update='sudo pacman -Syu'
 
 #### Free
-alias free="free -mt"
+#alias free="free -mt"
 
 #### userList
 alias userlist="cut -d: f1 /etc/passwd | sort"
@@ -61,10 +63,11 @@ alias hw="hwinfo --short"
 #### Cleanup orphaned packages
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
 
-#### Shutdown or Reboot
+#### Shutdown, Reboot and Suspend
 alias ssn="sudo shutdown now"
 alias sr="sudo reboot"
-
+alias sus="sudo systemctl suspend"
+alias rbash='source ~/.bashrc'
 #### ex = Extractor for all kings of archives
 #### usage: ex <file>
 ex ()
@@ -104,3 +107,32 @@ pfetch
 ### git bare: config alias
 alias config='/usr/bin/git --git-dir=/home/haopu/.cfg/ --work-tree=/home/haopu'
 . "$HOME/.cargo/env"
+
+
+##### System Status ####
+status() {
+	{
+		echo -e "\nUptime:"
+		uptime
+		echo -e "\nDisk Space:"
+		df -h 2> /dev/null
+		echo -e "\nInodes:"
+		df -i 2> /dev/null
+		echo -e "\nBlock devices:"
+		blkid
+		echo -e "\nMemory:"
+		free -m
+		if [[ -r /var/log/syslog ]]; then
+			echo -e "\nSyslog:"
+			tail /var/log/syslog
+		fi
+		if [[ -r /var/log/messages ]]; then
+			echo -e "\nMessages:"
+			tail /var/log/message
+		fi
+	} | less
+}
+
+#### Terminal Size ###
+alias term_size='echo "Rows=$(tput lines) Cols=$(tput cols)"'
+
