@@ -10,5 +10,4 @@ set noswapfile
 set hlsearch
 set ignorecase
 set incsearch
-set spell spelllang=en_us
 set relativenumber

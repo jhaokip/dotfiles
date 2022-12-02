@@ -51,6 +51,15 @@ fi
 ## Make Cap Locks an additional Ctrl and Press both Shifts to toggle CapsLock
 setxkbmap -option caps:ctrl_modifier,shift:both_capslock &
 
+## Merge .Xresources file at startup
+xrdb -merge ~/.config/X11/.Xresources
+
+## Start Urxvt daemon at startup
+urxvtd -o -q -f
+ 
+## Start powerline-daemon at startup
+/usr/bin/powerline-daemon -q
+
 ## Start i3-gaps
 exec i3
 

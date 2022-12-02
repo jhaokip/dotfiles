@@ -14,24 +14,25 @@ export VISUAL='vim'
 export HISTCONTROL=ignoreboth:erasedups
 
 ###############################
-alias cfi='vim /home/haopu/.config/i3/config'
 alias v=vim
+alias cfi='vim /home/haopu/.config/i3/config'
+alias brc='vim /home/haopu/.bashrc'
 alias df='df -h'
 alias grep='grep --color=auto'
 
 ################### Bash Powerline status #################
-#if [ -f `which powerline-daemon` ]; then
+if [ -f `which powerline-daemon` ]; then
   powerline-daemon -q
   POWERLINE_BASH_CONTINUATION=1
   POWERLINE_BASH_SELECT=1
   . /usr/share/powerline/bindings/bash/powerline.sh
-#fi
+fi
 
 
 #### System Update Pacman
 
 #### List ls aliases
-alias la='ls -aF'
+alias la='ls -alF | less'
 alias ll='ls -alFh'
 alias l='ls'
 alias l.="ls -A | grep -E '^\.'"
@@ -43,9 +44,6 @@ alias cd..='cd ..'
 alias pdw='pwd'
 alias update='sudo pacman -Syu'
 
-#### Free
-#alias free="free -mt"
-
 #### userList
 alias userlist="cut -d: f1 /etc/passwd | sort"
 
@@ -53,12 +51,12 @@ alias userlist="cut -d: f1 /etc/passwd | sort"
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 #### Switch between bash, zsh and fish
-alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
-alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
-alias tofish="sudo chsh $USER -s /bin/fish && echo 'Now log out.'"
+## alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
+## alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
+## alias tofish="sudo chsh $USER -s /bin/fish && echo 'Now log out.'"
 
 #### Hardware Info --short
-alias hw="hwinfo --short"
+alias hw="hwinfo --short | less"
 
 #### Cleanup orphaned packages
 alias cleanup='sudo pacman -Rns $(pacman -Qtdq)'
@@ -100,9 +98,8 @@ alias btrfsfs="sudo btrfs filesystem df /"
 alias btrfsli="sudo btrfs su li / -t"
 
 #### Update mirrors
-alias mirror='sudo reflector --protocol https --latest 10 --number 20 --sort rate --save /etc/pacman.d/mirrorlist'
+alias mirror='sudo reflector --country India,Germany --protocol https --latest 10 --age 12  --number 20 --sort rate --save /etc/pacman.d/mirrorlist'
 alias mirrors='mirror'
-pfetch
 
 ### git bare: config alias
 alias config='/usr/bin/git --git-dir=/home/haopu/.cfg/ --work-tree=/home/haopu'
@@ -132,7 +129,4 @@ status() {
 		fi
 	} | less
 }
-
-#### Terminal Size ###
-alias term_size='echo "Rows=$(tput lines) Cols=$(tput cols)"'
 
