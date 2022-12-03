@@ -49,7 +49,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 ## Make Cap Locks an additional Ctrl and Press both Shifts to toggle CapsLock
-setxkbmap -option caps:ctrl_modifier,shift:both_capslock &
+setxkbmap -option caps:ctrl_modifier,shift:both_capslock_cancel &
 
 ## Merge .Xresources file at startup
 xrdb -merge ~/.config/X11/.Xresources

@@ -74,8 +74,8 @@ floating_modifier $mod
 # start a terminal
 ##bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Return exec $preferredTerminalEmulator
-bindsym $alt+Return exec /usr/bin/urxvt
-bindsym $mod+Shift+Return exec /usr/bin/alacritty
+## bindsym $alt+Return exec /usr/bin/urxvt
+## bindsym $mod+Shift+Return exec /usr/bin/alacritty
 # kill focused window
 ##bindsym $mod+Shift+q kill
 bindsym $mod+q kill
@@ -83,6 +83,7 @@ bindsym $mod+q kill
 # start dmenu (a program launcher)
 ##bindsym $mod+d exec --no-startup-id dmenu_run
 bindsym $alt+space exec --no-startup-id dmenu_run
+bindsym Shift+control+space exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -212,6 +213,16 @@ bindsym Shift+control+h workspace prev
 #for_window [class="KeePassXC"] move to workspace $ws9
 #for_window [class="okular"] move to workspace $ws4
 #for_window [class="Emacs"] move to workspace $ws5
+
+## Floating pop-up automatically
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+## Terminal scratchpad
+#for_window [instance="Xfce4-terminal_scratchpad"] move to scratchpad, border none
+#bindsym Shift+control+s [instance="Xfce4-terminal_scratchpad"] scratchpad show
+#exec Xfce
+
 
 # reload the configuration file
 bindsym $mod+Shift+c reload

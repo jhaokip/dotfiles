@@ -39,6 +39,11 @@ alias l.="ls -A | grep -E '^\.'"
 ##alias urbit='ssh -i ~/.ssh/oracle.key ubuntu@130.61.255.175'
 alias rg='ranger'
 
+## Check disk size of files or directories
+## example: ds /home/haopu/Documents
+## example: ds /home/haopu/Downloads/movies.mkv
+alias ds='du -sh'
+
 #### Fix obvious typo's
 alias cd..='cd ..'
 alias pdw='pwd'
