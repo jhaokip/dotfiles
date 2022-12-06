@@ -38,6 +38,7 @@ alias l='ls'
 alias l.="ls -A | grep -E '^\.'"
 ##alias urbit='ssh -i ~/.ssh/oracle.key ubuntu@130.61.255.175'
 alias rg='ranger'
+alias cls='clear'
 
 ## Check disk size of files or directories
 ## example: ds /home/haopu/Documents

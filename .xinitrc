@@ -48,17 +48,23 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
+## Compositing
+/usr/bin/picom -f &
+
+## Nitrogen restore background
+/usr/bin/nitrogen --restore &
+
 ## Make Cap Locks an additional Ctrl and Press both Shifts to toggle CapsLock
 setxkbmap -option caps:ctrl_modifier,shift:both_capslock_cancel &
 
 ## Merge .Xresources file at startup
-xrdb -merge ~/.config/X11/.Xresources
+xrdb -merge ~/.config/X11/.Xresources &
 
 ## Start Urxvt daemon at startup
-urxvtd -o -q -f
+urxvtd -o -q -f &
  
 ## Start powerline-daemon at startup
-/usr/bin/powerline-daemon -q
+/usr/bin/powerline-daemon -q &
 
 ## Start i3-gaps
 exec i3

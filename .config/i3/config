@@ -344,10 +344,10 @@ mode "$mode_system" {
 
 
 ## Compositing
-exec_always /usr/bin/picom -f
+## exec_always /usr/bin/picom -f
 
 ## Nitrogen background restore
-exec_always /usr/bin/nitrogen --restore
+## exec_always /usr/bin/nitrogen --restore
 
 ## Display Wallpaper using feh
 ## exec_always feh --bg-fill /home/haopu/Pictures/Wallpapers/background.png
@@ -375,6 +375,7 @@ exec_always --no-startup-id numlockx on
 
 ## Launch Emacs
 bindsym $alt+e exec /usr/bin/emacs
+## bindsym Shift+control+e /usr/bin/emacs
 
 ## Launch Thunar in daemon mode
-##exec_always thunar --daemon
+exec_always thunar --daemon
