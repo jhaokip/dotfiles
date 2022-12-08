@@ -60,6 +60,9 @@ setxkbmap -option caps:ctrl_modifier,shift:both_capslock_cancel &
 ## Merge .Xresources file at startup
 xrdb -merge ~/.config/X11/.Xresources &
 
+## Start thunar daemon at startup
+/usr/bin/thunar --daemon &
+
 ## Start Urxvt daemon at startup
 urxvtd -o -q -f &
  
