@@ -17,6 +17,7 @@ export HISTCONTROL=ignoreboth:erasedups
 alias v=vim
 alias cfi='vim /home/haopu/.config/i3/config'
 alias brc='vim /home/haopu/.bashrc'
+alias wallpaper='cd /home/haopu/Pictures/Wallpaper'
 alias df='df -h'
 alias grep='grep --color=auto'
 
