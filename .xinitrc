@@ -61,7 +61,10 @@ setxkbmap -option caps:ctrl_modifier,shift:both_capslock_cancel &
 xrdb -merge ~/.config/X11/.Xresources &
 
 ## Start thunar daemon at startup
-/usr/bin/thunar --daemon &
+## /usr/bin/thunar --daemon &
+
+## Start pcmanfm daemon at startup
+/usr/bin/pcmanfm -d &
 
 ## Start Urxvt daemon at startup
 urxvtd -o -q -f &
@@ -69,6 +72,8 @@ urxvtd -o -q -f &
 ## Start powerline-daemon at startup
 /usr/bin/powerline-daemon -q &
 
+## Start st terminal
+/usr/local/bin/st &
 ## Start i3-gaps
 exec i3
 

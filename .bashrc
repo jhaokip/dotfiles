@@ -7,6 +7,7 @@
 
 alias ls='ls --color=auto -lF'
 PS1='[\u@\h \W]\$ '
+alias s='startx'
 
 ############# SETTING DEFAULT EDITOR ###################
 export EDITOR='vim'

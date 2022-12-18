@@ -75,10 +75,15 @@ floating_modifier $mod
 ##bindsym $mod+Return exec i3-sensible-terminal
 bindsym $alt+Return exec $preferredTerminalEmulator
 bindsym $mod+Return exec /usr/local/bin/st
-## bindsym $mod+Shift+Return exec /usr/bin/alacritty
+##bindsym $mod+Shift+Return exec /usr/bin/alacritty
+bindsym $mod+Shift+Return exec /usr/bin/pcmanfm
+
 # kill focused window
 ##bindsym $mod+Shift+q kill
 bindsym $mod+q kill
+
+## Quit unresponsive programs
+bindsym --release $mod+Escape exec xkill
 
 # start dmenu (a program launcher)
 ##bindsym $mod+d exec --no-startup-id dmenu_run
@@ -327,7 +332,7 @@ mode "$mode_gaps_outer" {
 
 ## Set shut down, restart and locking features
 bindsym $alt+0 mode "$mode_system"
-set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Sh>
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (S)hutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id i3exit lock, mode "default"
     bindsym s exec --no-startup-id i3exit suspend, mode "default"
@@ -353,7 +358,13 @@ mode "$mode_system" {
 ## exec_always feh --bg-fill /home/haopu/Pictures/Wallpapers/background.png
 
 ## Keybinding for betterlockscreen
-bindsym $mod+Shift+x exec /usr/bin/betterlockscreen -l dim 
+#bindsym $mod+Shift+x exec /usr/bin/betterlockscreen -l dim 
+
+## Keybinding for betterlockscreen
+bindsym $mod+Shift+x exec /usr/local/bin/archlinux-betterlockscreen  
+
+## Archlinux Logout
+bindsym $mod+Shift+p exec /usr/local/bin/archlinux-logout
 
 ## Rofi themes from adi1090x
 #bindsym $alt+space exec --no-startup-id ~/.config/rofi/launchers/type-4/launcher.sh
